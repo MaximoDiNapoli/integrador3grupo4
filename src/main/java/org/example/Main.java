@@ -5,6 +5,11 @@ import org.example.model.StaticBinaryMerkleTree;
 
 public class Main {
     public static void main(String[] args) {
+        ejercicio1Test();
+    }
+
+
+    public static void ejercicio1Test(){
         DynamicBinaryMerkleTree tree = new DynamicBinaryMerkleTree();
 
         System.out.println("Merkle Root Inicial: " + tree.getMerkleRoot());
@@ -15,6 +20,5 @@ public class Main {
         tree.addRight("Transaction4");
 
         System.out.println("Merkle Root después de agregar transacciones: " + tree.getMerkleRoot());
-
     }
 }
