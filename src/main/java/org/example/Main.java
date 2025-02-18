@@ -1,18 +1,24 @@
+package org.example;
+
+import org.example.model.DynamicBinaryMerkleTree;
+import org.example.model.StaticBinaryMerkleTree;
+
 public class Main {
     public static void main(String[] args) {
-        ArbolBinarioBusqueda arbol1 = new ArbolBinarioBusqueda();
-        arbol1.insertar(5);
-        arbol1.insertar(3);
-        arbol1.insertar(7);
+        ejercicio1Test();
+    }
 
-        ArbolBinarioBusqueda arbol2 = new ArbolBinarioBusqueda();
-        arbol2.insertar(4);
-        arbol2.insertar(2);
-        arbol2.insertar(8);
 
-        ArbolBinarioBusqueda arbolCombinado = ArbolBinarioBusqueda.combinarArboles(arbol1, arbol2);
+    public static void ejercicio1Test(){
+        DynamicBinaryMerkleTree tree = new DynamicBinaryMerkleTree();
 
-        System.out.println("Árbol combinado (inorden): ");
-        arbolCombinado.inorden(arbolCombinado.raiz);
+        System.out.println("Merkle Root Inicial: " + tree.getMerkleRoot());
+
+        tree.addLeft("Transaction1");
+        tree.addRight("Transaction2");
+        tree.addLeft("Transaction3");
+        tree.addRight("Transaction4");
+
+        System.out.println("Merkle Root después de agregar transacciones: " + tree.getMerkleRoot());
     }
 }
