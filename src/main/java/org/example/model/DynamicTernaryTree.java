@@ -15,36 +15,45 @@ public class DynamicTernaryTree implements TernaryTree {
 
     @Override
     public int getRoot() {
-        return root;
+        return this.root;
     }
 
     @Override
     public DynamicTernaryTree getLeft() {
-        return left;
+        return this.left;
     }
 
     @Override
     public DynamicTernaryTree getCenter() {
-        return center;
+        return this.center;
     }
 
     @Override
     public DynamicTernaryTree getRight() {
-        return right;
+        return this.right;
     }
 
     @Override
     public void addLeft(int a) {
+        if (this.left != null) {
+            throw new RuntimeException("Ya existe un hijo izquierdo");
+        }
         this.left = new DynamicTernaryTree(a);
     }
 
     @Override
     public void addCenter(int a) {
+        if (this.center != null) {
+            throw new RuntimeException("Ya existe un hijo central");
+        }
         this.center = new DynamicTernaryTree(a);
     }
 
     @Override
     public void addRight(int a) {
+        if (this.right != null) {
+            throw new RuntimeException("Ya existe un hijo derecho");
+        }
         this.right = new DynamicTernaryTree(a);
     }
 

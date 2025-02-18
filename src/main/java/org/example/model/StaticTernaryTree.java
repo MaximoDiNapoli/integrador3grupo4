@@ -15,22 +15,22 @@ public class StaticTernaryTree implements TernaryTree {
 
     @Override
     public int getRoot() {
-        return root;
+        return this.root;
     }
 
     @Override
     public StaticTernaryTree getLeft() {
-        return left;
+        return this.left;
     }
 
     @Override
     public StaticTernaryTree getCenter() {
-        return center;
+        return this.center;
     }
 
     @Override
     public StaticTernaryTree getRight() {
-        return right;
+        return this.right;
     }
 
     @Override
