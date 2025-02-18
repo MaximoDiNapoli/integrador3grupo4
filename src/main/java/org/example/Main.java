@@ -1,9 +1,8 @@
 package org.example;
 
-import org.example.model.DynamicBinaryMerkleTree;
-import org.example.model.DynamicBinaryTree;
+import org.example.model.*;
 
-import static org.example.util.BinaryTreeUtil.mergeTrees;
+import static org.example.util.BinaryTreeUtil.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,5 +39,27 @@ public class Main {
         System.out.println("Merged tree root: " + mergedTree.getRoot());
         System.out.println("Merged tree left: " + mergedTree.getLeft().getRoot());
         System.out.println("Merged tree right: " + mergedTree.getRight().getRoot());
+
+        DynamicStack stack = new DynamicStack();
+        stack.add(10);
+        stack.add(20);
+        stack.add(30);
+        stack.add(40);
+
+        DynamicBinaryTree skewedTree = stackToRightSkewedTree(stack);
+        System.out.println("Right skewed tree root: " + skewedTree.getRoot());
+        System.out.println("Right skewed tree right: " + skewedTree.getRight().getRoot());
+
+
+
+        DynamicQueue queue = new DynamicQueue();
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+        queue.add(40);
+
+        DynamicBinaryTree skewedTreeLeft = queueToLeftSkewedTree(queue);
+        System.out.println("Left skewed tree root: " + skewedTreeLeft.getRoot());
+        System.out.println("Left skewed tree left: " + skewedTreeLeft.getLeft().getRoot());
     }
 }

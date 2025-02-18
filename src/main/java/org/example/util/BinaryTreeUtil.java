@@ -2,6 +2,10 @@ package org.example.util;
 
 import org.example.model.DynamicBinaryTree;
 import org.example.model.BinaryTree;
+import org.example.model.DynamicQueue;
+import org.example.model.DynamicStack;
+
+import java.util.Stack;
 
 public class BinaryTreeUtil {
 
@@ -28,4 +32,39 @@ public class BinaryTreeUtil {
     }
 
 
+
+    public static DynamicBinaryTree stackToRightSkewedTree(DynamicStack stack) {
+        if (stack.isEmpty()) return null;
+
+        DynamicBinaryTree root = new DynamicBinaryTree(stack.getTop());
+        stack.remove();
+        DynamicBinaryTree current = root;
+
+        while (!stack.isEmpty()) {
+            current.addRight(stack.getTop());
+            stack.remove();
+            current = (DynamicBinaryTree) current.getRight();
+        }
+
+        return root;
+    }
+
+
+
+
+    public static DynamicBinaryTree queueToLeftSkewedTree(DynamicQueue queue) {
+        if (queue.isEmpty()) return null;
+
+        DynamicBinaryTree root = new DynamicBinaryTree(queue.getFirst());
+        queue.remove();
+        DynamicBinaryTree current = root;
+
+        while (!queue.isEmpty()) {
+            current.addLeft(queue.getFirst());
+            queue.remove();
+            current = (DynamicBinaryTree) current.getLeft();
+        }
+
+        return root;
+    }
 }
