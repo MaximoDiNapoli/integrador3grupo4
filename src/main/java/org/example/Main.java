@@ -7,7 +7,7 @@ import static org.example.util.BinaryTreeUtil.*;
 
 public class Main {
     public static void main(String[] args) {
-        ejercicio3Test();
+        ejercicio2Test();
     }
 
 
@@ -24,6 +24,85 @@ public class Main {
         System.out.println("Merkle Root después de agregar transacciones: " + tree.getMerkleRoot());
     }
 
+    public static void ejercicio2Test() {
+        System.out.println("=== PRUEBAS DE StaticSearchTernaryTree ===");
+
+        StaticSearchTernaryTree tree = new StaticSearchTernaryTree();
+
+        // Insertar valores en el árbol
+        System.out.println("Insertando valores en el árbol...");
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(70);
+        tree.insert(30);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(60);
+        tree.insert(80);
+        tree.insert(70);
+        tree.insert(70);
+        tree.insert(100);
+        tree.insert(10);
+
+        // Imprimir el árbol en orden
+        System.out.println("Recorrido en orden después de las inserciones:");
+        tree.inOrderTraversal();
+
+        // Buscar valores
+        System.out.println("¿Existe 40? " + tree.search(40)); // true
+        System.out.println("¿Existe 100? " + tree.search(100)); // true
+        System.out.println("¿Existe 15? " + tree.search(15)); // false
+
+        // Intentar insertar más de tres nodos medios en el mismo valor
+        System.out.println("Intentando insertar más de tres nodos medios en 30 y 70...");
+        tree.insert(30);
+        tree.insert(70);
+
+        // Eliminar valores
+        System.out.println("Eliminando 40...");
+        tree.delete(40);
+        System.out.println("Eliminando 70...");
+        tree.delete(70);
+
+        // Imprimir el árbol después de eliminar
+        System.out.println("Recorrido en orden después de eliminaciones:");
+        tree.inOrderTraversal();
+
+        System.out.println("\n=== PRUEBAS DE DynamicSearchTernaryTree ===");
+
+        DynamicSearchTernaryTree tree2 = new DynamicSearchTernaryTree();
+
+        System.out.println("Insertando valores en el árbol dinámico...");
+        tree2.insert(50);
+        tree2.insert(30);
+        tree2.insert(70);
+        tree2.insert(30);
+        tree2.insert(30);
+        tree2.insert(20);
+        tree2.insert(40);
+        tree2.insert(60);
+        tree2.insert(80);
+        tree2.insert(70);
+        tree2.insert(70);
+        tree2.insert(100);
+        tree2.insert(10);
+
+        System.out.println("Recorrido en orden después de las inserciones (dinámico):");
+        tree2.inOrderTraversal();
+
+        System.out.println("¿Existe 40? " + tree2.search(40));
+        System.out.println("¿Existe 100? " + tree2.search(100));
+        System.out.println("¿Existe 15? " + tree2.search(15));
+
+        System.out.println("Eliminando 40...");
+        tree2.delete(40);
+        System.out.println("Eliminando 70...");
+        tree2.delete(70);
+
+        System.out.println("Recorrido en orden después de eliminaciones (dinámico):");
+        tree2.inOrderTraversal();
+    }
 
     public static void ejercicio3Test(){
         // Crear un árbol binario
