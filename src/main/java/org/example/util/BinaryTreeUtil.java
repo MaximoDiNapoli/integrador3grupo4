@@ -29,7 +29,6 @@ public class BinaryTreeUtil {
     }
 
 
-
     public static DynamicBinaryTree stackToRightSkewedTree(DynamicStack stack) {
         if (stack.isEmpty()) return null;
 
@@ -47,8 +46,6 @@ public class BinaryTreeUtil {
     }
 
 
-
-
     public static DynamicBinaryTree queueToLeftSkewedTree(DynamicQueue queue) {
         if (queue.isEmpty()) return null;
 
@@ -64,7 +61,6 @@ public class BinaryTreeUtil {
 
         return root;
     }
-
 
 
     // Método para calcular la altura de un nodo y llenar el diccionario
@@ -121,6 +117,53 @@ public class BinaryTreeUtil {
             } else {
                 insertIntoTree((DynamicBinaryTree) tree.getRight(), key);
             }
+        }
+    }
+
+    public static BinaryTree findIntersection(BinaryTree tree1, BinaryTree tree2) {
+        if (tree1 == null || tree2 == null) {
+            System.out.println("Uno de los árboles es nulo, retornando null.");
+            return null;
+        }
+
+        // Si las raíces no coinciden, no hay intersección
+        if (tree1.getRoot() != tree2.getRoot()) {
+            System.out.println("Raíces diferentes: " + tree1.getRoot() + " y " + tree2.getRoot() + ". Retornando null.");
+            return null;
+        }
+
+        System.out.println("Nodo en intersección: " + tree1.getRoot());
+
+        // Crear un nuevo árbol con la raíz común
+        DynamicBinaryTree intersectionTree = new DynamicBinaryTree(tree1.getRoot());
+
+        // Obtener la intersección de los subárboles
+        BinaryTree leftIntersection = findIntersection(tree1.getLeft(), tree2.getLeft());
+        BinaryTree rightIntersection = findIntersection(tree1.getRight(), tree2.getRight());
+
+        // Agregar los hijos manteniendo la estructura completa
+        if (leftIntersection != null) {
+            System.out.println("Agregando hijo izquierdo con estructura: " + leftIntersection.getRoot());
+            intersectionTree.addLeft(leftIntersection.getRoot());
+            copySubtree((DynamicBinaryTree) intersectionTree.getLeft(), (DynamicBinaryTree) leftIntersection);
+        }
+        if (rightIntersection != null) {
+            System.out.println("Agregando hijo derecho con estructura: " + rightIntersection.getRoot());
+            intersectionTree.addRight(rightIntersection.getRoot());
+            copySubtree((DynamicBinaryTree) intersectionTree.getRight(), (DynamicBinaryTree) rightIntersection);
+        }
+
+        return intersectionTree;
+    }
+
+    private static void copySubtree(DynamicBinaryTree target, DynamicBinaryTree source) {
+        if (source.getLeft() != null) {
+            target.addLeft(source.getLeft().getRoot());
+            copySubtree((DynamicBinaryTree) target.getLeft(), (DynamicBinaryTree) source.getLeft());
+        }
+        if (source.getRight() != null) {
+            target.addRight(source.getRight().getRoot());
+            copySubtree((DynamicBinaryTree) target.getRight(), (DynamicBinaryTree) source.getRight());
         }
     }
 }

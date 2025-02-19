@@ -7,7 +7,7 @@ import static org.example.util.BinaryTreeUtil.*;
 
 public class Main {
     public static void main(String[] args) {
-        ejercicio2Test();
+        ejercicio5Test();
     }
 
 
@@ -175,4 +175,29 @@ public class Main {
         System.out.println("Left skewed tree root: " + skewedTreeLeft.getRoot());
         System.out.println("Left skewed tree left: " + skewedTreeLeft.getLeft().getRoot());
     }
+
+
+    public static void ejercicio5Test(){
+        DynamicBinaryTree tree1 = new DynamicBinaryTree(10);
+        tree1.addLeft(5);
+        tree1.addRight(15);
+        tree1.getLeft().addLeft(2);
+        tree1.getLeft().addRight(7);
+        tree1.getRight().addLeft(12);
+        tree1.getRight().addRight(18);
+
+        DynamicBinaryTree tree2 = new DynamicBinaryTree(10);
+        tree2.addLeft(5);
+        tree2.addRight(15);
+        tree2.getLeft().addLeft(2);
+        tree2.getLeft().addRight(7);
+        tree2.getRight().addLeft(12);
+        tree2.getRight().addRight(20);
+
+        BinaryTree intersectionTree = findIntersection(tree1, tree2);
+
+        System.out.println("Intersección del árbol binario:");
+        printTree((DynamicBinaryTree) intersectionTree, 0);
+    }
+
 }
