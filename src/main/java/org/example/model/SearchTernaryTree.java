@@ -1,6 +1,6 @@
 package org.example.model;
 
-public interface ISearchTernaryTree {
+public interface SearchTernaryTree {
 
     /**
      * Inserta un valor en el árbol.

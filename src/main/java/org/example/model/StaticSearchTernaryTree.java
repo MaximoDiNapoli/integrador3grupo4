@@ -1,6 +1,6 @@
 package org.example.model;
 
-public class StaticSearchTernaryTree implements ISearchTernaryTree {
+public class StaticSearchTernaryTree implements SearchTernaryTree {
 
     private static final int MAX_SIZE = 100;
     private int[] values;

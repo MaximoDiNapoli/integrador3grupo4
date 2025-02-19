@@ -1,8 +1,6 @@
 package org.example.model;
 
-import org.example.model.ISearchTernaryTree;
-
-public class DynamicSearchTernaryTree implements ISearchTernaryTree {
+public class DynamicSearchTernaryTree implements SearchTernaryTree {
 
     // Clase interna que representa un nodo del árbol ternario
     private static class Node {

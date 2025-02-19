@@ -7,9 +7,12 @@ import static org.example.util.BinaryTreeUtil.*;
 
 public class Main {
     public static void main(String[] args) {
+        ejercicio1Test();
+        ejercicio2Test();
+        ejercicio3Test();
+        ejercicio4Test();
         ejercicio5Test();
     }
-
 
     public static void ejercicio1Test(){
         DynamicBinaryMerkleTree tree = new DynamicBinaryMerkleTree();
@@ -130,14 +133,6 @@ public class Main {
         printTree(reconstructedTree, 0);
     }
 
-    private static void printTree(DynamicBinaryTree tree, int level) {
-        if (tree == null) return;
-        printTree((DynamicBinaryTree) tree.getRight(), level + 1);
-        System.out.println("  ".repeat(level) + tree.getRoot());
-        printTree((DynamicBinaryTree) tree.getLeft(), level + 1);
-    }
-
-
     public static void ejercicio4Test(){
         DynamicBinaryTree tree1 = new DynamicBinaryTree(5);
         tree1.addLeft(3);
@@ -176,7 +171,6 @@ public class Main {
         System.out.println("Left skewed tree left: " + skewedTreeLeft.getLeft().getRoot());
     }
 
-
     public static void ejercicio5Test(){
         DynamicBinaryTree tree1 = new DynamicBinaryTree(10);
         tree1.addLeft(5);
@@ -199,5 +193,13 @@ public class Main {
         System.out.println("Intersección del árbol binario:");
         printTree((DynamicBinaryTree) intersectionTree, 0);
     }
+
+    private static void printTree(DynamicBinaryTree tree, int level) {
+        if (tree == null) return;
+        printTree((DynamicBinaryTree) tree.getRight(), level + 1);
+        System.out.println("  ".repeat(level) + tree.getRoot());
+        printTree((DynamicBinaryTree) tree.getLeft(), level + 1);
+    }
+
 
 }
