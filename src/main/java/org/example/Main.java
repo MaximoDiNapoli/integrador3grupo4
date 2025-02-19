@@ -14,17 +14,22 @@ public class Main {
         ejercicio5Test();
     }
 
-    public static void ejercicio1Test(){
-        DynamicBinaryMerkleTree tree = new DynamicBinaryMerkleTree();
+    public static void ejercicio1Test() {
+        DynamicBinaryMerkleTree dynamicTree = new DynamicBinaryMerkleTree();
+        System.out.println("Merkle Root Inicial (Dinámico): " + dynamicTree.getMerkleRoot());
 
-        System.out.println("Merkle Root Inicial: " + tree.getMerkleRoot());
+        dynamicTree.addLeft("a");
+        dynamicTree.addRight("b");
+        dynamicTree.addLeft("c");
+        dynamicTree.addRight("d");
+        System.out.println("Merkle Root después de agregar transacciones (Dinámico): " + dynamicTree.getMerkleRoot());
 
-        tree.addLeft("a");
-        tree.addRight("b");
-        tree.addLeft("c");
-        tree.addRight("d");
-
-        System.out.println("Merkle Root después de agregar transacciones: " + tree.getMerkleRoot());
+        StaticBinaryMerkleTree staticTree = new StaticBinaryMerkleTree("a");
+        staticTree.addLeft("b");
+        staticTree.addRight("c");
+        staticTree.addLeft("d");
+        staticTree.addRight("e");
+        System.out.println("Merkle Root después de agregar transacciones (Estático): " + staticTree.getMerkleRoot());
     }
 
     public static void ejercicio2Test() {

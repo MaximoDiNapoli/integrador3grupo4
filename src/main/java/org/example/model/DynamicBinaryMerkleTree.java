@@ -37,14 +37,17 @@ public class DynamicBinaryMerkleTree implements BinaryMerkleTree {
 
         hashList = new LinkedListString();
         for (int i = 0; i < dataList.length(); i++) {
-            hashList.add(computeHash(dataList.get(i)));
+            String data = dataList.get(i);
+            if (!data.isEmpty()) {
+                hashList.add(computeHash(data));
+            }
         }
 
         while (hashList.length() > 1) {
             LinkedListString nextLevelHashes = new LinkedListString();
             for (int i = 0; i < hashList.length(); i += 2) {
                 String leftHash = hashList.get(i);
-                String rightHash = (i + 1 < hashList.length()) ? hashList.get(i + 1) : "";
+                String rightHash = (i + 1 < hashList.length()) ? hashList.get(i + 1) : leftHash;
                 nextLevelHashes.add(computeHash(leftHash + rightHash));
             }
             hashList = nextLevelHashes;
@@ -69,21 +72,13 @@ public class DynamicBinaryMerkleTree implements BinaryMerkleTree {
 
     @Override
     public void addLeft(String data) {
-        if (this.left == null) {
-            this.left = new DynamicBinaryMerkleTree();
-        }
-        this.left.dataList.add(data);
-        this.left.updateTree();
+        this.dataList.add(data);
         updateTree();
     }
 
     @Override
     public void addRight(String data) {
-        if (this.right == null) {
-            this.right = new DynamicBinaryMerkleTree();
-        }
-        this.right.dataList.add(data);
-        this.right.updateTree();
+        this.dataList.add(data);
         updateTree();
     }
 
