@@ -1,130 +1,67 @@
 package org.example.model;
 
-public class StaticSearchTernaryTree implements SearchTernaryTree {
+public class StaticSearchTernaryTree {
+    
+    private final TernaryTree ternaryTree;
 
-    private static final int MAX_SIZE = 100;
-    private int[] values;
-    private int[] left;
-    private int[] middle;
-    private int[] right;
-    private int size;
-
-    public StaticSearchTernaryTree() {
-        values = new int[MAX_SIZE];
-        left = new int[MAX_SIZE];
-        middle = new int[MAX_SIZE];
-        right = new int[MAX_SIZE];
-        size = 0;
-
-        for (int i = 0; i < MAX_SIZE; i++) {
-            left[i] = -1;
-            middle[i] = -1;
-            right[i] = -1;
-        }
+    public StaticSearchTernaryTree(int root) {
+        this.ternaryTree = new StaticTernaryTree(root);
     }
 
-    /**
-     * Inserta un valor en el árbol.
-     * Complejidad: O(log n) en un árbol balanceado, O(n) en el peor caso si está desbalanceado.
-     * @param value Valor entero a insertar.
-     */
-    @Override
-    public void insert(int value) {
-        if (size >= MAX_SIZE) {
-            System.out.println("El árbol está lleno, no se pueden insertar más valores.");
-            return;
-        }
+    private StaticSearchTernaryTree(TernaryTree ternaryTree) {
+        this.ternaryTree = ternaryTree;
+    }
 
-        if (size == 0) {
-            values[size++] = value;
-            return;
-        }
+    public int getRoot() {
+        return this.ternaryTree.getRoot();
+    }
 
-        int index = 0;
-        while (true) {
-            if (value < values[index]) {
-                if (left[index] == -1) {
-                    left[index] = size;
-                    values[size++] = value;
-                    return;
-                }
-                index = left[index];
-            } else if (value > values[index]) {
-                if (right[index] == -1) {
-                    right[index] = size;
-                    values[size++] = value;
-                    return;
-                }
-                index = right[index];
+    public StaticSearchTernaryTree getLeft() {
+        TernaryTree left = this.ternaryTree.getLeft();
+        return (left != null) ? new StaticSearchTernaryTree(left) : null;
+    }
+
+    public StaticSearchTernaryTree getMiddle() {
+        TernaryTree middle = this.ternaryTree.getMiddle();
+        return (middle != null) ? new StaticSearchTernaryTree(middle) : null;
+    }
+
+    public StaticSearchTernaryTree getRight() {
+        TernaryTree right = this.ternaryTree.getRight();
+        return (right != null) ? new StaticSearchTernaryTree(right) : null;
+    }
+
+    public void add(int a) {
+        if (a < this.getRoot()) {
+            if (this.getLeft() != null) {
+                this.getLeft().add(a);
             } else {
-                if (middle[index] == -1) {
-                    middle[index] = size;
-                    values[size++] = value;
-                    return;
-                } else {
-                    System.out.println("No se pueden insertar más de 3 hijos para un mismo valor.");
-                    return;
-                }
+                this.ternaryTree.addLeft(a);
             }
-        }
-    }
-
-    /**
-     * Busca un valor en el árbol.
-     * Complejidad: O(log n) en un árbol balanceado, O(n) en el peor caso si está desbalanceado.
-     * @param value Valor entero a buscar.
-     * @return true si el valor está en el árbol, false en caso contrario.
-     */
-    @Override
-    public boolean search(int value) {
-        int index = 0;
-        while (index != -1) {
-            if (value < values[index]) {
-                index = left[index];
-            } else if (value > values[index]) {
-                index = right[index];
+        } else if (a == this.getRoot()) {
+            if (this.getMiddle() != null) {
+                this.getMiddle().add(a);
             } else {
-                return true;
+                this.ternaryTree.addMiddle(a);
+            }
+        } else {
+            if (this.getRight() != null) {
+                this.getRight().add(a);
+            } else {
+                this.ternaryTree.addRight(a);
             }
         }
-        return false;
     }
 
-    /**
-     * Elimina un valor del árbol (borrado lógico).
-     * Complejidad: O(n) ya que debemos reorganizar los nodos.
-     * @param value Valor entero a eliminar.
-     * @return true si el valor fue eliminado, false si no se encontraba en el árbol.
-     */
-    @Override
-    public boolean delete(int value) {
-        for (int i = 0; i < size; i++) {
-            if (values[i] == value) {
-                values[i] = values[size - 1];
-                size--;
-                return true;
-            }
-        }
-        return false;
+    public void removeLeft() {
+        this.ternaryTree.removeLeft();
     }
 
-    /**
-     * Imprime el árbol en orden (In-Order Traversal).
-     * Complejidad: O(n), ya que se visitan todos los nodos.
-     */
-    @Override
-    public void inOrderTraversal() {
-        inOrderTraversalRec(0);
-        System.out.println();
+    public void removeMiddle() {
+        this.ternaryTree.removeMiddle();
     }
 
-    private void inOrderTraversalRec(int index) {
-        if (index == -1 || index >= size) {
-            return;
-        }
-        inOrderTraversalRec(left[index]);
-        System.out.print(values[index] + " ");
-        inOrderTraversalRec(middle[index]);
-        inOrderTraversalRec(right[index]);
+    public void removeRight() {
+        this.ternaryTree.removeRight();
     }
 }

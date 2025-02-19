@@ -2,28 +2,19 @@ package org.example.model;
 
 public interface SearchTernaryTree {
 
-    /**
-     * Inserta un valor en el árbol.
-     * @param value Valor entero a insertar.
-     */
-    void insert(int value);
+    int getRoot();
 
-    /**
-     * Busca un valor en el árbol.
-     * @param value Valor entero a buscar.
-     * @return true si el valor está en el árbol, false en caso contrario.
-     */
-    boolean search(int value);
+    SearchTernaryTree getLeft();
 
-    /**
-     * Elimina un valor del árbol.
-     * @param value Valor entero a eliminar.
-     * @return true si el valor fue eliminado, false si no se encontraba en el árbol.
-     */
-    boolean delete(int value);
+    SearchTernaryTree getCenter();
 
-    /**
-     * Imprime el árbol en orden (In-Order Traversal).
-     */
-    void inOrderTraversal();
+    SearchTernaryTree getRight();
+
+    void add(int a);
+
+    void removeLeft();
+
+    void removeCenter();
+
+    void removeRight();
 }
