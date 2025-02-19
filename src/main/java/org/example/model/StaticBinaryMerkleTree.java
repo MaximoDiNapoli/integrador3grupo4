@@ -1,7 +1,5 @@
 package org.example.model;
 
-
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -54,6 +52,26 @@ public class StaticBinaryMerkleTree implements BinaryMerkleTree {
         updateHash();
     }
 
+    @Override
+    public void addLeftSubtree(BinaryMerkleTree subtree) {
+        if (subtree instanceof StaticBinaryMerkleTree) {
+            this.left = (StaticBinaryMerkleTree) subtree;
+            updateHash();
+        } else {
+            throw new IllegalArgumentException("El subárbol debe ser una instancia de StaticBinaryMerkleTree");
+        }
+    }
+
+    @Override
+    public void addRightSubtree(BinaryMerkleTree subtree) {
+        if (subtree instanceof StaticBinaryMerkleTree) {
+            this.right = (StaticBinaryMerkleTree) subtree;
+            updateHash();
+        } else {
+            throw new IllegalArgumentException("El subárbol debe ser una instancia de StaticBinaryMerkleTree");
+        }
+    }
+
     private void updateHash() {
         String leftHash = (left != null) ? left.getHash() : "";
         String rightHash = (right != null) ? right.getHash() : "";
@@ -64,5 +82,4 @@ public class StaticBinaryMerkleTree implements BinaryMerkleTree {
     public String getMerkleRoot() {
         return this.hash;
     }
-
 }

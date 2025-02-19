@@ -19,10 +19,10 @@ public class Main {
 
         System.out.println("Merkle Root Inicial: " + tree.getMerkleRoot());
 
-        tree.addLeft("Transaction1");
-        tree.addRight("Transaction2");
-        tree.addLeft("Transaction3");
-        tree.addRight("Transaction4");
+        tree.addLeft("a");
+        tree.addRight("b");
+        tree.addLeft("c");
+        tree.addRight("d");
 
         System.out.println("Merkle Root después de agregar transacciones: " + tree.getMerkleRoot());
     }

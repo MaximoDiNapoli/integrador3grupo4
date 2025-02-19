@@ -3,17 +3,17 @@ package org.example.model;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DynamicBinaryMerkleTree implements BinaryMerkleTree {
     private String hash;
     private DynamicBinaryMerkleTree left;
     private DynamicBinaryMerkleTree right;
-    private List<String> dataList;
+    private LinkedListString dataList;
+    private LinkedListString hashList;
 
     public DynamicBinaryMerkleTree() {
-        this.dataList = new ArrayList<>();
+        this.dataList = new LinkedListString();
+        this.hashList = new LinkedListString();
         this.hash = "";
         this.left = null;
         this.right = null;
@@ -30,26 +30,26 @@ public class DynamicBinaryMerkleTree implements BinaryMerkleTree {
     }
 
     private void updateTree() {
-        if (dataList.isEmpty()) {
+        if (dataList.length() == 0) {
             this.hash = "";
             return;
         }
 
-        List<String> tempHashes = new ArrayList<>();
-        for (String data : dataList) {
-            tempHashes.add(computeHash(data));
+        hashList = new LinkedListString();
+        for (int i = 0; i < dataList.length(); i++) {
+            hashList.add(computeHash(dataList.get(i)));
         }
 
-        while (tempHashes.size() > 1) {
-            List<String> nextLevelHashes = new ArrayList<>();
-            for (int i = 0; i < tempHashes.size(); i += 2) {
-                String leftHash = tempHashes.get(i);
-                String rightHash = (i + 1 < tempHashes.size()) ? tempHashes.get(i + 1) : "";
+        while (hashList.length() > 1) {
+            LinkedListString nextLevelHashes = new LinkedListString();
+            for (int i = 0; i < hashList.length(); i += 2) {
+                String leftHash = hashList.get(i);
+                String rightHash = (i + 1 < hashList.length()) ? hashList.get(i + 1) : "";
                 nextLevelHashes.add(computeHash(leftHash + rightHash));
             }
-            tempHashes = nextLevelHashes;
+            hashList = nextLevelHashes;
         }
-        this.hash = tempHashes.get(0);
+        this.hash = hashList.get(0);
     }
 
     @Override
@@ -69,19 +69,46 @@ public class DynamicBinaryMerkleTree implements BinaryMerkleTree {
 
     @Override
     public void addLeft(String data) {
-        dataList.add(data);
+        if (this.left == null) {
+            this.left = new DynamicBinaryMerkleTree();
+        }
+        this.left.dataList.add(data);
+        this.left.updateTree();
         updateTree();
     }
 
     @Override
     public void addRight(String data) {
-        dataList.add(data);
+        if (this.right == null) {
+            this.right = new DynamicBinaryMerkleTree();
+        }
+        this.right.dataList.add(data);
+        this.right.updateTree();
         updateTree();
+    }
+
+    @Override
+    public void addLeftSubtree(BinaryMerkleTree subtree) {
+        if (subtree instanceof DynamicBinaryMerkleTree) {
+            this.left = (DynamicBinaryMerkleTree) subtree;
+            updateTree();
+        } else {
+            throw new IllegalArgumentException("El subárbol debe ser una instancia de DynamicBinaryMerkleTree");
+        }
+    }
+
+    @Override
+    public void addRightSubtree(BinaryMerkleTree subtree) {
+        if (subtree instanceof DynamicBinaryMerkleTree) {
+            this.right = (DynamicBinaryMerkleTree) subtree;
+            updateTree();
+        } else {
+            throw new IllegalArgumentException("El subárbol debe ser una instancia de DynamicBinaryMerkleTree");
+        }
     }
 
     @Override
     public String getMerkleRoot() {
         return this.hash;
     }
-
 }
